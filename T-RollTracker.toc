@@ -1,0 +1,6 @@
+## Interface: 11200
+## Title: [ |cFFFFFFFFWM|r ] |cFF11A6ECT-RollTracker|r |cFF7FFF7Fv1.8|r
+## Version: 1.18
+## Author: Mikhail Palagin (Wht Mst)
+## Notes: |cFF11A6ECT-RollTracker|r is an advanced roll tracking addon that automatically detects roll events from raid/party chat, filters and sorts rolls for fair loot distribution on |cff00ff00Turtle WoW|r. Made with love by Wht Mst.
+T-RollTracker.xml

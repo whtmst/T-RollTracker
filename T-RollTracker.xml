@@ -1,0 +1,188 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	
+	<Script file="T-RollTracker.lua"/>
+
+	<Frame name="TRollTrackerFrame" parent="UIParent" hidden="true" movable="true" enableMouse="True" frameStrata="HIGH" resizable="true">
+		<Size><AbsDimension x="175" y="250"/></Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+			<Offset><AbsDimension x="0" y="0"/></Offset>
+		</Anchors>
+		<Backdrop name="$parentBackdrop" bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+		edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>	
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentTitle" inherits="GameFontNormal" text="Трекер бросков|nby Misha (Wht Mst)" justifyH="CENTER" justifyV="TOP">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-10"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT" Point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-10" y="-30"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+
+				<FontString name="$parentStatusText" inherits="GameFontNormalSmall" text="0 бросков" justifyH="CENTER" justifyV="TOP">
+					<Color r="0.5" g="0.5" b="1.0"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="10" y="10"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="TRollTrackerFrame" relativePoint="TOPRIGHT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						TRollTracker_OnCloseButtonClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parentStopButton" inherits="UIPanelButtonTemplate" text="Стоп">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeTo="$parentCloseButton">
+						<Offset>
+							<AbsDimension x="-28" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size><AbsDimension x="60" y="20"/></Size>
+				<Scripts>
+					<OnClick>
+						TRollTracker_OnStopButtonClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parentStartButton" inherits="UIPanelButtonTemplate" text="Старт">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentStopButton">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size><AbsDimension x="60" y="20"/></Size>
+				<Scripts>
+					<OnClick>
+						TRollTracker_OnStartButtonClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parentAnnounceButton" inherits="UIPanelButtonTemplate" text="Объявить победителя">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeTo="$parentStatusText">
+						<Offset>
+							<AbsDimension x="-7" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size><AbsDimension x="160" y="24"/></Size>
+				<Scripts>
+					<OnClick>
+						TRollTracker_OnAnnounceButtonClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<ScrollFrame name="$parentRollScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-60"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeTo="$parentAnnounceButton">
+						<Offset>
+							<AbsDimension x="-23" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<ScrollChild>
+					<Frame name="$parentScrollChild">
+						<Size>
+							<AbsDimension x="30" y="30"/>
+						</Size>
+						<Frames>
+							<SimpleHTML name="TRollTrackerRollText">
+
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="TRollTrackerFrameRollScrollFrameScrollChild">
+										<Offset>
+											<AbsDimension x="10" y="-8"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="BOTTOMRIGHT" relativeTo="TRollTrackerFrameRollScrollFrame">
+										<Offset>
+											<AbsDimension x="0" y="2"/>
+										</Offset>
+									</Anchor>
+									
+										
+								</Anchors>
+								<FontString name="TRollTrackerFontString" inherits="ChatFontNormal" justifyH="LEFT" justifyV="TOP">
+									<Size>
+										<AbsDimension x="270" y="0"/>
+									</Size>
+									<Color r="1" g="1" b="1" a="1.0" />
+								</FontString>
+							</SimpleHTML>
+						</Frames>
+					</Frame>
+				</ScrollChild>
+			</ScrollFrame>
+		</Frames>
+	
+	
+	
+		<Scripts>
+			<OnLoad>
+				TRollTracker_OnLoad()
+			</OnLoad>
+			<OnEvent>
+				TRollTracker_OnEvent(event)
+			</OnEvent>
+			<OnDragStart>
+				TRollTracker_OnDragStart()
+			</OnDragStart>
+			<OnDragStop>
+				TRollTracker_OnDragStop()
+			</OnDragStop>
+
+		</Scripts>
+	</Frame>
+	
+
+	
+</Ui>
